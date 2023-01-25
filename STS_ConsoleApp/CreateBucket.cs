@@ -80,9 +80,12 @@ namespace STS_ConsoleApp
                 
             ListBucketsRequest request = new ListBucketsRequest();
                 
-            ListBucketsResponse response = await client.ListBucketsAsync(request);                     
+            ListBucketsResponse response = await client.ListBucketsAsync(request);
 
-            string[] listaBuckets = response.Buckets.Select(x => x.BucketName).ToArray();            
+            string[] listaBuckets = response.Buckets.Select(x => {
+                Console.WriteLine("Bucket {0}, Criado em {1}", x.BucketName, x.CreationDate);
+                return x.BucketName;
+            }).ToArray();
 
             return listaBuckets;
         }
